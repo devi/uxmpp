@@ -84,7 +84,6 @@ begin
   xmpp.OnUserLeftRoom := DoOnLeftRoom;
   xmpp.OnLogin := DoOnLoggin;
   xmpp.OnLogout := DoOnLogout;
-
   xmpp.OnRoomList := DoOnDebugXML;
   xmpp.OnRoster := DoOnRoster;
 
