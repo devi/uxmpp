@@ -83,7 +83,7 @@ uses
 {$IFDEF CIL}
   System.IO,
 {$ENDIF}
-  SysUtils, Classes, SynaFpc;
+  SysUtils, Classes, SynaFpc, FileUtil;
 
 {$IFDEF VER100}
 type
@@ -346,16 +346,16 @@ var
      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
     ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',  //English
      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
-    ('jan', 'fév', 'mar', 'avr', 'mai', 'jun', //French
-     'jul', 'aoû', 'sep', 'oct', 'nov', 'déc'),
+    ('jan', 'fÃ©v', 'mar', 'avr', 'mai', 'jun', //French
+     'jul', 'aoÃ»', 'sep', 'oct', 'nov', 'dÃ©c'),
     ('jan', 'fev', 'mar', 'avr', 'mai', 'jun',  //French#2
      'jul', 'aou', 'sep', 'oct', 'nov', 'dec'),
     ('Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun',  //German
      'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'),
-    ('Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun',  //German#2
+    ('Jan', 'Feb', 'MÃ¤r', 'Apr', 'Mai', 'Jun',  //German#2
      'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'),
-    ('Led', 'Úno', 'Bøe', 'Dub', 'Kvì', 'Èen',  //Czech
-     'Èec', 'Srp', 'Záø', 'Øíj', 'Lis', 'Pro')
+    ('Led', 'Ãšno', 'BÃ¸e', 'Dub', 'KvÃ¬', 'Ãˆen',  //Czech
+     'Ãˆec', 'Srp', 'ZÃ¡Ã¸', 'Ã˜Ã­j', 'Lis', 'Pro')
      );
 
 
@@ -965,8 +965,8 @@ var
   f: Text;
 begin
   AssignFile(f, DumpFile);
-  if FileExists(DumpFile) then
-    DeleteFile(DumpFile);
+  if FileExistsUTF8(DumpFile) { *Converted from FileExists*  } then
+    DeleteFileUTF8(DumpFile); { *Converted from DeleteFile*  }
   Rewrite(f);
   try
     Writeln(f, DumpStr(Buffer));
@@ -982,8 +982,8 @@ var
   f: Text;
 begin
   AssignFile(f, DumpFile);
-  if FileExists(DumpFile) then
-    DeleteFile(DumpFile);
+  if FileExistsUTF8(DumpFile) { *Converted from FileExists*  } then
+    DeleteFileUTF8(DumpFile); { *Converted from DeleteFile*  }
   Rewrite(f);
   try
     Writeln(f, DumpExStr(Buffer));

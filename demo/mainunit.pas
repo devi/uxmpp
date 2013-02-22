@@ -1,5 +1,9 @@
 unit mainunit;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF}
+
 interface
 
 uses
@@ -7,7 +11,15 @@ uses
   uxmpp,synacode,synautil;
 
 type
+
+  { TfrmMain }
+
   TfrmMain = class(TForm)
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
     Memo1: TMemo;
     Button1: TButton;
     Button2: TButton;
@@ -36,6 +48,8 @@ type
     procedure DoOnJoinedRoom(Sender:TObject;JID:string);
     procedure DoOnLeftRoom(Sender:TObject;JID:string);
     procedure DoOnRoster(Sender:TObject;JID,Name,Subscription,Group:string);
+    procedure DoOnPresence(Sender: TObject; presence_type_, jid_, resource_, status_, photo_: string);
+    procedure DoOnIqVcard(Sender:TObject; from_, to_, fn_, photo_type_, photo_bin_ : string);
 
   public
     procedure Tulis(log:string);
@@ -50,6 +64,18 @@ implementation
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
+  //some ui related staff
+  Edit1.Text:= 'user@serv.er';
+  Edit2.Text:= '';
+  Edit2.EchoMode:= emPassword;
+  Edit3.Text:='5222';
+  Label1.Caption:= 'Username';
+  Label1.Width:= 230;
+  Label2.Caption:= 'Password';
+  Label2.Width:= 230;
+
+
+  //xmpp
   xmpp := TXmpp.Create;
   xmpp.OnError := DoOnError;
   xmpp.OnDebugXML := DoOnDebugXML;
@@ -62,6 +88,8 @@ begin
   xmpp.OnRoomList := DoOnDebugXML;
   xmpp.OnRoster := DoOnRoster;
 
+  xmpp.OnIqVcard:= DoOnIqVcard;
+  xmpp.OnPresence:= DoOnPresence;
 end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
@@ -86,10 +114,12 @@ end;
 
 procedure TfrmMain.Button1Click(Sender: TObject);
 begin
-  xmpp.Host := 'gmail.com';
-  xmpp.Port := '5222';
-  xmpp.JabberID := 'my_gmail_id@gmail.com';
-  xmpp.Password := 'password';
+  Edit1.Text := synautil.TrimSPLeft(Edit1.Text);
+  Edit1.Text := synautil.TrimSPRight(Edit1.Text);
+  xmpp.Host := synautil.SeparateRight(Edit1.Text, '@');
+  xmpp.Port := Edit3.Text;
+  xmpp.JabberID := Edit1.Text;
+  xmpp.Password := Edit2.Text;
   xmpp.Login;
 end;
 
@@ -160,4 +190,24 @@ begin
   Tulis(JID+':'+Name+':'+Subscription+':'+Group);
 end;
 
+procedure TfrmMain.DoOnIqVcard(Sender:TObject; from_, to_, fn_, photo_type_, photo_bin_ : string);
+begin
+    Tulis('Entered DoOnIqVcard');
+    Tulis('from: ' + from_);
+    Tulis('to: ' + to_);
+    Tulis('photo type: ' + photo_type_);
+    Tulis('photo binary: ' + photo_bin_);
+    Tulis('Exited DoOnIqVcard');
+end;
+
+procedure TfrmMain.DoOnPresence(Sender: TObject; presence_type_, jid_, resource_, status_, photo_: string);
+   begin
+     Tulis('Entered DoOnPresence');
+     Tulis('presence type is ' + presence_type_);
+     Tulis('jid is ' + jid_);
+     Tulis('resource is ' + resource_);
+     Tulis('status is ' + status_);
+     Tulis('photo is ' + photo_);
+     Tulis('Exited DoOnPresence');
+   end;
 end.
