@@ -45,6 +45,7 @@ type
   TRoomPresence = procedure(Sender:TObject;JID:string) of object;
   TRoomListEvent= procedure(Sender:TObject;RoomName:string) of object;
   TRosterEvent  = procedure(Sender:TObject;JID,Name,Subscription,Group:string) of object;
+
   TPresenceEvent= procedure(Sender:TObject;Presence_Type,JID,Resource,Status,Photo : string) of object;
   TIqVcardEvent = procedure(Sender:TObject; from_, to_, fn_, photo_type_, photo_bin_ : string) of object;
 
