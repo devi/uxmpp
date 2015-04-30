@@ -46,6 +46,9 @@ type
   TRoomListEvent= procedure(Sender:TObject;RoomName:string) of object;
   TRosterEvent  = procedure(Sender:TObject;JID,Name,Subscription,Group:string) of object;
 
+  TPresenceEvent= procedure(Sender:TObject;Presence_Type,JID,Resource,Status,Photo : string) of object;
+  TIqVcardEvent = procedure(Sender:TObject; from_, to_, fn_, photo_type_, photo_bin_ : string) of object;
+
   TXmpp=class
   private
     FSocket:TTCPClient;
@@ -78,6 +81,9 @@ type
 
     FOnJoinedRoom,
     FOnLeftRoom:TRoomPresence;
+
+    FOnPresence : TPresenceEvent;
+    FOnIqVcard  : TIqVcardEvent;
 
     FRoomRoster:TStringList;
     FTimer:TTimer;
@@ -171,6 +177,9 @@ type
     property OnRoomList:TRoomListEvent read FOnRoomList write FOnRoomList;
 
     property OnRoster:TRosterEvent read FOnRoster write FOnRoster;
+
+    property OnPresence: TPresenceEvent read FOnPresence write FOnPresence;
+    property OnIqVcard : TIqVcardEvent       read FOnIqVcard write FOnIqVcard;
   end;
   
 
@@ -246,7 +255,8 @@ begin
     Exit;
 
   if (Pos('gmail.com',FHost)>0) or
-    (Pos('google.com',FHost)>0) then
+    (Pos('google.com',FHost)>0) or 
+    (Pos('googlemail.com', FHost) > 0) then
   begin
     FHost := 'talk.google.com';
     FUser := SeparateLeft(FUser,'@');
@@ -763,9 +773,54 @@ var
   trid:string;
   q,qi:TXMLTag;
   i:integer;
+
+  server_name, server_type, from_, to_, fn_, photo_type_, photo_bin_ : string;
+  vc0, vc1, vc2, vc3, vc4 : TXMLTag;
+
 begin
   trid := tag.GetAttribute('id');
   ty := tag.GetAttribute('type');
+
+  if (trid = 'vc2') and (ty = 'result') then begin // got vcard of the contact
+
+        from_ := tag.GetAttribute('from');
+        to_   := tag.GetAttribute('to');
+
+        vc0 := tag.GetFirstTag('vCard');
+        if (vc0<>nil) then begin
+           vc1 := vc0.GetFirstTag('FN');
+           if (vc1<>nil) then begin
+             fn_ := vc1.Data;
+             vc2 := vc0.GetFirstTag('PHOTO');
+             if vc2 <> nil then begin
+                vc3 := vc2.GetFirstTag('TYPE');
+                if vc3 <> nil then begin
+                   photo_type_ := vc3.Data;
+                   vc4 := vc2.GetFirstTag('BINVAL');
+                   if vc4 <> nil then begin
+                      photo_bin_ := vc4.Data;
+                   end;
+                end;
+             end; //photo
+           end; //fn
+        end;
+        vc0.Free;
+        vc1.Free;
+        vc2.Free;
+        vc3.Free;
+        if Assigned(FOnIqVcard) then begin
+
+          FOnIqVcard (Self, from_, to_, fn_, photo_type_, photo_bin_) ;
+
+        end;
+     exit
+  end;  //vcard
+
+
+
+
+
+
   if (ty='result') then
   begin
     if (not FSessAuth) then
@@ -822,6 +877,8 @@ begin
             if (iqid='server') then
             begin
               // servername, servertype
+              server_name := qi.GetAttribute('name');
+              server_type := qi.GetAttribute('type');
             end else // server
             if (iqid='pubsub') then
             begin
@@ -1107,6 +1164,10 @@ var
   p,x:TXMLTag;
   pf,pty,
   pid:string;
+
+  status_tag, x_tag, photo_tag : TXMLTag;
+  presence_type_, tmp_, jid_, resource_, status_, photo_ : string;
+
 begin
   pf := tag.GetAttribute('from');
   pty:= tag.GetAttribute('type');
@@ -1141,6 +1202,33 @@ begin
     //end;
   end else
   begin
+
+     if Assigned(FOnPresence) then begin
+        presence_type_ := pty;
+        jid_ := '';
+        resource_ := '';
+        status_ := '';
+        photo_ := '';
+        tmp_ := tag.GetAttribute('from');
+        jid_ := synautil.SeparateLeft(tmp_, '/');
+        resource_ := synautil.SeparateRight(tmp_, '/');
+        status_tag := tag.GetFirstTag('status');
+        if (status_tag <> nil) then begin
+           status_ := status_tag.Data
+        end;
+        x_tag := tag.GetFirstTag('x');
+        if (x_tag<>nil) then begin
+           photo_tag := x_tag.GetFirstTag('photo');
+           if (photo_tag<>nil) then begin
+              photo_ := photo_tag.Data;
+           end;
+        end;
+        //status_tag.Free;
+        //x_tag.Free;
+        //photo_tag.Free;
+        FOnPresence (Self, presence_type_, jid_, resource_, status_, photo_) ;
+     end;
+
 
   end;
 end;
