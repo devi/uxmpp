@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="7">
+      <Unit0>
+        <Filename Value="dxmpp.dpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="13"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="mainunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmMain"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="mainunit"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="182"/>
+        <CursorPos X="23" Y="92"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../source/tcpsynapse/synautil.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="synautil"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="172"/>
+        <CursorPos X="16" Y="192"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="../source/tcpsynapse/synacode.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="21"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../source/uxmpp.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uxmpp"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="765"/>
+        <CursorPos X="19" Y="772"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="/tail/home/noch/github/uxmpp/source/uxmpp.pas"/>
+        <UnitName Value="uxmpp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="768"/>
+        <CursorPos X="1" Y="780"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="/tail/home/noch/github/uxmpp/demo/mainunit.pas"/>
+        <UnitName Value="mainunit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="189"/>
+        <CursorPos X="1" Y="205"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit6>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="dxmpp.dpr"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="dxmpp.dpr"/>
+        <Caret Line="13" Column="22" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="65" Column="30" TopLine="58"/>
+      </Position3>
+      <Position4>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="66" Column="30" TopLine="59"/>
+      </Position4>
+      <Position5>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="111" Column="27" TopLine="99"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../source/tcpsynapse/synautil.pas"/>
+        <Caret Line="157" Column="35" TopLine="135"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../source/tcpsynapse/synautil.pas"/>
+        <Caret Line="195" Column="17" TopLine="175"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../source/tcpsynapse/synautil.pas"/>
+        <Caret Line="196" Column="21" TopLine="176"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../source/tcpsynapse/synautil.pas"/>
+        <Caret Line="149" Column="18" TopLine="149"/>
+      </Position9>
+      <Position10>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="208" Column="1" TopLine="193"/>
+      </Position10>
+      <Position11>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="202" Column="1" TopLine="188"/>
+      </Position11>
+      <Position12>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="195" Column="3" TopLine="187"/>
+      </Position12>
+      <Position13>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="55" Column="20" TopLine="43"/>
+      </Position13>
+      <Position14>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="92" Column="23" TopLine="82"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../source/uxmpp.pas"/>
+        <Caret Line="772" Column="19" TopLine="765"/>
+      </Position15>
+    </JumpHistory>
+  </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../source/uxmpp.pas"/>
+        <Line Value="806"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
+</CONFIG>
